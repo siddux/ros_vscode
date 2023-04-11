@@ -1,0 +1,32 @@
+image: docker:latest
+
+before_script:
+  - apk add bash
+  - apk add git
+
+stages:          # List of stages for jobs, and their order of execution
+  - test
+  - lint
+
+
+test-job:   # This job runs in the test stage.
+  stage: test
+  script:
+    - docker build --network=host --build-arg TESTING=true --build-arg GIT_REPO=$CI_REPOSITORY_URL -f .devcontainer/Dockerfile -t test-noetic .
+    - docker run --entrypoint /repo/.gitlab/actions/test/run.sh test-noetic
+
+lint-job:   # This job also runs in the test stage.
+  stage: test    # It can run at the same time as unit-test-job (in parallel).
+  parallel:
+        matrix:
+            - linter: cppcheck
+            - linter: cpplint
+            - linter: uncrustify
+            - linter: lint_cmake
+            - linter: xmllint
+            - linter: flake8
+            - linter: pep257
+  script:
+    - docker build --network=host --build-arg TESTING=true --build-arg GIT_REPO=$CI_REPOSITORY_URL -f .devcontainer/Dockerfile -t    test-noetic .
+    - docker run -e LINTER=$linter --entrypoint /repo/.gitlab/actions/lint/run.sh test-noetic
+    

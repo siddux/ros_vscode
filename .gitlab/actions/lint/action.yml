@@ -1,0 +1,6 @@
+name: 'Lint'
+description: 'Lint using devcontainer'
+runs:
+  using: 'docker'
+  image: '../../../.devcontainer/Dockerfile'
+  entrypoint: ".gitlab/actions/lint/run.sh"
