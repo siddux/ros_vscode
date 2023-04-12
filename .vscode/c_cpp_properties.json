@@ -11,7 +11,8 @@
             "compileCommands": "${workspaceFolder}/devel/compile_commands.json",
             "cStandard": "c99",
             "cppStandard": "c++14",
-            "intelliSenseMode": "linux-gcc-x64"
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "b2.catkin_tools"
         }
     ],
     "version": 4
