@@ -19,5 +19,5 @@ RUN echo "if [ -f ${WORKSPACE}/devel/setup.bash ]; then source ${WORKSPACE}/deve
 # Set up content clone for CI testing
 ARG TESTING
 ARG GIT_REPO
-RUN if [ "$TESTING" = "true" ]; then git clone ${GIT_REPO} -b foxy repo; fi
+RUN if [ "$TESTING" = "true" ]; then git clone ${GIT_REPO} -b noetic repo; fi
 
