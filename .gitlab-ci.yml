@@ -3,6 +3,8 @@ image: docker:latest
 before_script:
   - apk add bash
   - apk add git
+  - docker image prune -f
+  - docker container prune -f
 
 stages:          # List of stages for jobs, and their order of execution
   - test
