@@ -1,4 +1,4 @@
-FROM eriusrob/ros:noetic-cuda-dev
+FROM eriusrob/ros:noetic-dev
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
