@@ -1,1 +1,1 @@
-[![pipeline status](http://gitlab.leitat.org/leitat-robotics/ros_vscode/badges/noetic/pipeline.svg)](http://gitlab.leitat.org/leitat-robotics/ros_vscode/-/commits/noetic)
+# VSCode setup for ROS
