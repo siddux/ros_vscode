@@ -1,6 +1,0 @@
-name: 'Test'
-description: 'Test using devcontainer'
-runs:
-  using: 'docker'
-  image: '../../../.devcontainer/Dockerfile'
-  entrypoint: ".gitlab/actions/test/run.sh"
