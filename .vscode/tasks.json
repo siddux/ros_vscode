@@ -9,6 +9,11 @@
             "detail": "Build workspace (default)",
             "type": "shell",
             "command": "./build.sh",
+            "options": {
+                "env": {
+                    "BUILD_TYPE": "RelWithDebInfo"
+                }
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -56,149 +61,31 @@
         },
         // Linting and static code analysis tasks
         {
-            "label": "fix",
-            "detail": "Reformat files with uncrustify.",
-            "type": "shell",
-            "command": "ament_uncrustify --reformat src/",
-            "problemMatcher": []
-        },
-        {
-            "label": "uncrustify",
-            "detail": "Lint files with uncrustify.",
-            "type": "shell",
-            "command": "ament_uncrustify src/",
-            "presentation": {
-                "panel": "dedicated",
-                "reveal": "silent",
-                "clear": true
-            },
-            "problemMatcher": [
-                {
-                    "owner": "uncrustify",
-                    "source": "uncrustify",
-                    "fileLocation": "relative",
-                    "pattern": [
-                        // just the file name message
-                        {
-                            "regexp": "^(.*)'(.*)':",
-                            "kind": "file",
-                            "file": 2,
-                            "message": 1
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "label": "cpplint",
+            "label": "roslint",
             "detail": "Lint files with cpplint.",
-            "type": "ament",
-            "task": "cpplint",
-            "path": "src/",
-            "problemMatcher": "$ament_cpplint",
-            "presentation": {
-                "panel": "dedicated",
-                "reveal": "silent",
-                "clear": true
-            },
-        },
-        {
-            "label": "cppcheck",
-            "detail": "Run static code checker cppcheck.",
-            "type": "ament",
-            "task": "cppcheck",
-            "path": "src/",
-            "problemMatcher": "$ament_cppcheck",
-            "presentation": {
-                "panel": "dedicated",
-                "reveal": "silent",
-                "clear": true
-            },
+            "type": "shell",
+            "command": "./build.sh",
             "options": {
                 "env": {
-                    "AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS": "1"
+                    "LINTER": "true"
                 }
-            }
+            },
+            "group": "build",
+            "problemMatcher": "$gcc"
         },
         {
-            "label": "lint_cmake",
-            "detail": "Run lint on cmake files.",
-            "type": "ament",
-            "task": "lint_cmake",
-            "path": "src/",
-            "problemMatcher": "$ament_lint_cmake",
-            "presentation": {
-                "panel": "dedicated",
-                "reveal": "silent",
-                "clear": true
-            }
-        },
-        {
-            "label": "flake8",
-            "detail": "Run flake8 on python files.",
-            "type": "ament",
-            "task": "flake8",
-            "path": "src/",
-            "problemMatcher": "$ament_flake8",
-            "presentation": {
-                "panel": "dedicated",
-                "reveal": "silent",
-                "clear": true
-            }
-        },
-        {
-            "label": "pep257",
-            "detail": "Run pep257 on python files.",
-            "type": "ament",
-            "task": "pep257",
-            "path": "src/",
-            "problemMatcher": "$ament_pep257",
-            "presentation": {
-                "panel": "dedicated",
-                "reveal": "silent",
-                "clear": true
-            }
-        },
-        {
-            "label": "xmllint",
-            "detail": "Run xmllint on xml files.",
-            "type": "ament",
-            "task": "xmllint",
-            "path": "src/",
-            "problemMatcher": "$ament_xmllint",
-            "presentation": {
-                "panel": "dedicated",
-                "reveal": "silent",
-                "clear": true
-            }
-        },
-        {
-            "label": "lint all",
-            "detail": "Run all linters.",
-            "dependsOn": [
-                "cppcheck",
-                "cpplint",
-                "flake8",
-                "lint_cmake",
-                "pep257",
-                "xmllint",
-                "uncrustify"
-            ],
-            "problemMatcher": []
+            "label": "catkinlint",
+            "detail": "Run a static analysis of the package.xml and CMakeLists.txt",
+            "type": "shell",
+            "command": "catkin_lint src",
+            "problemMatcher": "$gcc"
         },
         // Workspace editing tasks
         {
-            "label": "new ament_cmake package",
+            "label": "new catkin package",
             "detail": "Create a new ROS cpp package from a template.",
             "type": "shell",
-            "command": "ros2 pkg create --destination-directory src --build-type ament_cmake ${input:package}",
-            "problemMatcher": []
-        },
-        {
-            "label": "new ament_python package",
-            "detail": "Create a new ROS python package from a template.",
-            "type": "shell",
-            "command": "ros2 pkg create --destination-directory src --build-type ament_python ${input:package}",
+            "command": "cd src && catkin_create_pkg ${input:package} --rosdistro noetic",
             "problemMatcher": []
         },
         {

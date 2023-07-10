@@ -10,7 +10,7 @@
             "compilerPath": "/usr/bin/gcc",
             "compileCommands": "${workspaceFolder}/devel/compile_commands.json",
             "cStandard": "c99",
-            "cppStandard": "c++14",
+            "cppStandard": "c++11",
             "intelliSenseMode": "linux-gcc-x64",
             "configurationProvider": "b2.catkin_tools"
         }
